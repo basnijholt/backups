@@ -1,0 +1,2 @@
+.seafile-data/*
+.DS_Store
