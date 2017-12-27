@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-cd $HOME/dotfiles/rsync-time-backup
+DIRECTORY=$(cd `dirname $0` && pwd)
+cd $DIRECTORY
 
 if test `find "last_backup.txt" -mmin +1440`
 then

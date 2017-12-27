@@ -5,7 +5,9 @@ export SSID="`airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`"
 export MY_NETWORK='Kwalitijd-Safe'
 
 # rsync-time-backup script
-export rtb=$HOME/dotfiles/rsync-time-backup/rsync-time-backup/rsync_tmbackup.sh
+DIRECTORY=$(cd `dirname $0` && pwd)
+cd $DIRECTORY
+export rtb=$DIRECTORY/rsync-time-backup/rsync_tmbackup.sh
 
 
 # Backup Seafile folder from local to 4TB
@@ -24,5 +26,5 @@ fi
 if [[ (-d /Volumes/4TB) && ($SSID == $MY_NETWORK) ]]; then 
   for folder in Encrypted Film Games iTunes Photos Websites; do
       $rtb /Volumes/4TB/$folder root@192.168.31.3:/media/usb/Backup-$folder excluded_patterns.txt
-  done 
+  done
 fi
