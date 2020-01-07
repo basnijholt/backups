@@ -10,7 +10,7 @@ fi
 
 # Get WiFi SSID from https://stackoverflow.com/a/4481019/3447047
 export SSID="`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`"
-export MY_NETWORK='Kwalitijd-Snel-5GHz'
+export MY_NETWORK='Baby love'
 
 # rsync-time-backup script
 DIRECTORY=$(cd `dirname $0` && pwd)
@@ -18,20 +18,20 @@ cd $DIRECTORY
 export rtb=$DIRECTORY/rsync-time-backup/rsync_tmbackup.sh
 
 
-# Backup Seafile folder from local to 4TB
-if [[ -d /Volumes/4TB ]]; then 
+# Backup Sync folder from local to 4TB
+if [[ -d /Volumes/4TB ]]; then
   $rtb $HOME/Sync /Volumes/4TB/Backup-Sync excluded_patterns.txt
 fi
 
 
-## Backup Seafile folder to 2TB @ RPi
-if [[ $SSID = $MY_NETWORK ]]; then
-  $rtb $HOME/Sync root@192.168.31.3:/media/usb/Backup-Sync excluded_patterns.txt
-fi
+## Backup Sync folder to 2TB @ RPi
+# if [[ $SSID = $MY_NETWORK ]]; then
+#   $rtb $HOME/Sync root@192.168.31.3:/media/usb/Backup-Sync excluded_patterns.txt
+# fi
 
 
 # 4TB to 2TB @ RPi
-if [[ (-d /Volumes/4TB) && ($SSID == $MY_NETWORK) ]]; then 
+if [[ (-d /Volumes/4TB) && ($SSID == $MY_NETWORK) ]]; then
   for folder in Encrypted iTunes Photos Websites; do
       $rtb /Volumes/4TB/$folder root@192.168.31.3:/media/usb/Backup-$folder excluded_patterns.txt
   done
